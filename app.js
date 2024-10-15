@@ -65,9 +65,8 @@ const PORT = process.env.PORT || 8000;
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true }) // Added options for connection
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error("MongoDB connection error:", err)); // Added error handling
+   .connect(process.env.MONGO_URL)
+   .then((e) => console.log("MongoDB Connected"));
 
 app.set("view engine", "ejs"); // Set the view engine to EJS
 app.set("views", path.resolve("./views")); // Set the views directory
@@ -96,4 +95,7 @@ app.use("/user", userRoute);
 app.use("/blog", blogRoute);
 
 // Start the server
-app.listen(PORT, () => console.log(`Server Started at PORT: ${PORT}`));
+// app.listen(PORT, () => console.log(`Server Started at PORT: ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server started at PORT: ${PORT}`);
+});
