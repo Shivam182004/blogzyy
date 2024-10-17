@@ -30,34 +30,56 @@
       .container {
         max-width: 1200px;
       }
+      .welcome-message {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 24px;
+        color: #333;
+      }
+      .create-account {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 18px;
+        color: #555;
+      }
     </style>
   </head>
   <body>
     <%- include('./partials/nav') %>
 
     <div class="container mt-5">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        <% blogs.forEach(blog => { %>
-        <div class="col">
-          <div class="card h-100">
-            <img
-              src="<%= blog.coverImageURL %>"
-              class="card-img-top"
-              alt="Blog Cover Image"
-            />
-            <div class="card-body">
-              <h5 class="card-title"><%= blog.title %></h5>
-              <a
-                href="/blog/<%= blog._id %>"
-                class="btn btn-primary mt-2"
-              >
-                View
-              </a>
+      <% if (!user) { %>
+        <div class="welcome-message">
+          Welcome to Blogzyy!
+        </div>
+        <div class="create-account">
+          Create your account now!
+          <a href="/user/signup" class="btn btn-primary mt-2">Sign Up</a>
+        </div>
+      <% } else { %>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+          <% blogs.forEach(blog => { %>
+          <div class="col">
+            <div class="card h-100">
+              <img
+                src="<%= blog.coverImageURL %>"
+                class="card-img-top"
+                alt="Blog Cover Image"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= blog.title %></h5>
+                <a
+                  href="/blog/<%= blog._id %>"
+                  class="btn btn-primary mt-2"
+                >
+                  View
+                </a>
+              </div>
             </div>
           </div>
+          <% }) %>
         </div>
-        <% }) %>
-      </div>
+      <% } %>
     </div>
 
     <%- include('./partials/scripts') %>
